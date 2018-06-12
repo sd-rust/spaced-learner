@@ -4,3 +4,9 @@ version = "0.1.0"
 authors = ["Sandeep Datta <datta.sandeep@gmail.com>"]
 
 [dependencies]
+
+
+[dependencies.cursive]
+version = "*"
+default-features = false
+features = ["termion-backend"]

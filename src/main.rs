@@ -1,3 +1,9 @@
+extern crate cursive;
+
+mod model;
+mod ui;
+
 fn main() {
-    println!("Hello, world!");
+    let mut ui = ui::create_ui();
+    ui.run();
 }
