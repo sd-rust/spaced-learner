@@ -5,7 +5,7 @@ use cursive::theme::{Color, PaletteColor};
 pub fn create_ui() -> Cursive {
     let mut siv = Cursive::default();
 
-    load_terminal_default_theme(&mut siv);
+    set_theme_terminal_default(&mut siv);
 
     siv.add_global_callback('q', |s| s.quit());
 
@@ -24,7 +24,7 @@ fn show_answer(s: &mut Cursive) {
 }
 
 
-fn load_terminal_default_theme(siv: &mut Cursive) {
+fn set_theme_terminal_default(siv: &mut Cursive) {
     // We'll return the current theme with a small modification.
     let mut theme = siv.current_theme().clone();
 
