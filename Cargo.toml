@@ -2,6 +2,7 @@
 name = "spaced_learner"
 version = "0.1.0"
 authors = ["Sandeep Datta <datta.sandeep@gmail.com>"]
+license = "Apache-2.0"
 
 [dependencies]
 
