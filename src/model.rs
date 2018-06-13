@@ -12,3 +12,44 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use serde_yaml;
+use std::fs::File;
+use std::io::prelude::*;
+use std::vec::Vec;
+
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+pub struct QAndA {
+    pub question: String,
+    pub answer: String,
+}
+
+impl QAndA {
+    pub fn new(question: &str, answer: &str) -> Self {
+        QAndA {
+            question: question.to_owned(),
+            answer: answer.to_owned(),
+        }
+    }
+}
+
+pub fn save_sample_yaml(file_name: &str) {
+    let q_and_a: Vec<QAndA> = vec![
+        QAndA::new("How do you quit vim?", ":q"),
+        QAndA::new("How do you enter insert mode from normal mode?", "'i' or 'a'"),
+    ];
+
+    let s = serde_yaml::to_string(&q_and_a).unwrap();
+
+    let mut file = File::create(file_name).unwrap();
+    write!(file, "{}", s).unwrap();
+}
+
+pub fn load_file(file_name: &str) -> Vec<QAndA>{
+    let mut file = File::open(file_name).unwrap();
+
+    let mut contents = String::new();
+
+    file.read_to_string(&mut contents).unwrap();
+
+    return serde_yaml::from_str(&contents).unwrap();
+}

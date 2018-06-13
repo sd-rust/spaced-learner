@@ -23,20 +23,26 @@ pub fn create_ui() -> Cursive {
 
     siv.add_global_callback('q', |s| s.quit());
 
-    siv.add_layer(Dialog::text("How do you exit vim?")
-        .title("Deck: Vim - Question")
-        .button("Show Answer", show_answer));
+    let question = "How do you exit vim?";
+    let answer = ":q";
+
+    show_question(&mut siv, question, answer );
 
     siv
 }
 
-fn show_answer(s: &mut Cursive) {
+fn show_question(siv: &mut Cursive, question: &'static str, answer: &'static str) {
+    siv.add_layer(Dialog::text(question)
+        .title("Deck: Vim - Question")
+        .button("Show Answer", move |s| show_answer(s, answer)));
+}
+
+fn show_answer(s: &mut Cursive, answer: &str) {
     s.pop_layer();
-    s.add_layer(Dialog::text(":q")
+    s.add_layer(Dialog::text(answer)
         .title("Deck: Vim - Answer")
         .button("Ok", |s| s.quit()));
 }
-
 
 fn set_theme_terminal_default(siv: &mut Cursive) {
     // We'll return the current theme with a small modification.

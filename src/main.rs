@@ -13,11 +13,14 @@
 // limitations under the License.
 
 extern crate cursive;
+extern crate serde_yaml;
+#[macro_use] extern crate serde_derive;
 
 mod model;
 mod ui;
 
 fn main() {
+    model::save_sample_yaml("vim.sl");
     let mut ui = ui::create_ui();
     ui.run();
 }
