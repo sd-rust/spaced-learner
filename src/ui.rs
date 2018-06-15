@@ -12,9 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+extern crate cursive;
+
 use cursive::Cursive;
-use cursive::views::Dialog;
-use cursive::theme::{Color, PaletteColor};
+use cursive::views::{Dialog, TextView};
+use cursive::theme::{Color, PaletteColor, BorderStyle};
+use cursive::traits::Boxable;
+use cursive::align::Align;
+
 
 pub fn create_ui() -> Cursive {
     let mut siv = Cursive::default();
@@ -32,16 +37,29 @@ pub fn create_ui() -> Cursive {
 }
 
 fn show_question(siv: &mut Cursive, question: &'static str, answer: &'static str) {
-    siv.add_layer(Dialog::text(question)
-        .title("Deck: Vim - Question")
-        .button("Show Answer", move |s| show_answer(s, answer)));
+    let text_view = TextView::new(question)
+                        .align(Align::center())
+                        .full_screen();
+
+    let dialog = Dialog::around(text_view)
+                    .title("Vim - Question")
+                    .button("Show Answer", move |s| show_answer(s, answer));
+
+    siv.add_fullscreen_layer(dialog);
 }
 
-fn show_answer(s: &mut Cursive, answer: &str) {
-    s.pop_layer();
-    s.add_layer(Dialog::text(answer)
-        .title("Deck: Vim - Answer")
-        .button("Ok", |s| s.quit()));
+fn show_answer(siv: &mut Cursive, answer: &str) {
+    siv.pop_layer();
+
+    let text_view = TextView::new(answer)
+        .align(Align::center())
+        .full_screen();
+
+    let dialog = Dialog::around(text_view)
+        .title("Vim - Answer")
+        .button("Ok", |s| s.quit());
+
+    siv.add_fullscreen_layer(dialog);
 }
 
 fn set_theme_terminal_default(siv: &mut Cursive) {
@@ -49,6 +67,9 @@ fn set_theme_terminal_default(siv: &mut Cursive) {
     let mut theme = siv.current_theme().clone();
 
     theme.palette[PaletteColor::Background] = Color::TerminalDefault;
+
+    theme.shadow = false;
+    theme.borders = BorderStyle::None;
 
     siv.set_theme(theme);
 }
