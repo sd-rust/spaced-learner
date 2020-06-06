@@ -19,7 +19,7 @@ use cursive::views::{Dialog, TextView};
 use cursive::theme::{Color, PaletteColor, BorderStyle};
 use cursive::traits::Boxable;
 use cursive::align::Align;
-
+use model;
 
 pub fn create_ui() -> Cursive {
     let mut siv = Cursive::default();
@@ -28,38 +28,44 @@ pub fn create_ui() -> Cursive {
 
     siv.add_global_callback('q', |s| s.quit());
 
-    let question = "How do you exit vim?";
-    let answer = ":q";
-
-    show_question(&mut siv, question, answer );
-
     siv
 }
 
-fn show_question(siv: &mut Cursive, question: &'static str, answer: &'static str) {
-    let text_view = TextView::new(question)
-                        .align(Align::center())
-                        .full_screen();
+impl model::Quiz {
+    pub fn show_question(&self, siv: &mut Cursive, question_number: usize) {
+        let qna = &self.bank[question_number];
 
-    let dialog = Dialog::around(text_view)
-                    .title("Vim - Question")
-                    .button("Show Answer", move |s| show_answer(s, answer));
+        let text_view = TextView::new(&qna.question)
+                            .align(Align::center())
+                            .full_screen();
 
-    siv.add_fullscreen_layer(dialog);
-}
+        // let dialog = Dialog::around(text_view)
+        //                 .title(self.title)
+        //                 .button("Show Answer", move |s| self.show_answer(s, question_number));
 
-fn show_answer(siv: &mut Cursive, answer: &str) {
-    siv.pop_layer();
+        let dialog = Dialog::around(text_view)
+            .title(&self.title)
+            .button("Show Answer", |s| s.quit());
 
-    let text_view = TextView::new(answer)
-        .align(Align::center())
-        .full_screen();
+        siv.add_fullscreen_layer(dialog);
+    }
 
-    let dialog = Dialog::around(text_view)
-        .title("Vim - Answer")
-        .button("Ok", |s| s.quit());
+    // pub fn show_answer(&self, siv: &mut Cursive, question_number: usize) {
+    //     siv.pop_layer();
 
-    siv.add_fullscreen_layer(dialog);
+    //     let qna = &self.bank[question_number];
+    
+    //     let text_view = TextView::new(qna.answer)
+    //         .align(Align::center())
+    //         .full_screen();
+    
+    //     let dialog = Dialog::around(text_view)
+    //         .title(self.title)
+    //         .button("Ok", |s| s.quit());
+    
+    //     siv.add_fullscreen_layer(dialog);
+    // }
+    
 }
 
 fn set_theme_terminal_default(siv: &mut Cursive) {

@@ -21,9 +21,11 @@ mod ui;
 
 fn main() {
     model::save_sample_yaml("vim.sl");
+    let quiz = model::load_file("vim.sl");
+
     let mut ui = ui::create_ui();
     // ui.run();
-
+    quiz.show_question(&mut ui, 0);
     while ui.is_running() {
         ui.step();
     }

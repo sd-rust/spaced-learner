@@ -19,8 +19,8 @@ use std::vec::Vec;
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Quiz {
-    title: String,
-    bank: Vec<QAndA>,
+    pub title: String,
+    pub bank: Vec<QAndA>,
 }
 
 impl Quiz {
