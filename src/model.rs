@@ -18,6 +18,22 @@ use std::io::prelude::*;
 use std::vec::Vec;
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
+pub struct Quiz {
+    title: String,
+    bank: Vec<QAndA>,
+}
+
+impl Quiz {
+    pub fn new(title: &str, bank: Vec<QAndA>) -> Quiz {
+        Quiz {
+            title: title.to_owned(),
+            bank,
+        }
+    }
+}
+
+
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct QAndA {
     pub question: String,
     pub answer: String,
@@ -33,18 +49,17 @@ impl QAndA {
 }
 
 pub fn save_sample_yaml(file_name: &str) {
-    let q_and_a: Vec<QAndA> = vec![
-        QAndA::new("How do you quit vim?", ":q"),
-        QAndA::new("How do you enter insert mode from normal mode?", "'i' or 'a'"),
-    ];
+    let quiz = Quiz::new("Vim Quiz!", 
+                            vec![ QAndA::new("How do you quit vim?", ":q")
+                                , QAndA::new("How do you enter insert mode from normal mode?", "'i' or 'a'")]);
 
-    let s = serde_yaml::to_string(&q_and_a).unwrap();
+    let s = serde_yaml::to_string(&quiz).unwrap();
 
     let mut file = File::create(file_name).unwrap();
     write!(file, "{}", s).unwrap();
 }
 
-pub fn load_file(file_name: &str) -> Vec<QAndA>{
+pub fn load_file(file_name: &str) -> Quiz {
     let mut file = File::open(file_name).unwrap();
 
     let mut contents = String::new();
