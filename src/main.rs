@@ -22,5 +22,9 @@ mod ui;
 fn main() {
     model::save_sample_yaml("vim.sl");
     let mut ui = ui::create_ui();
-    ui.run();
+    // ui.run();
+
+    while ui.is_running() {
+        ui.step();
+    }
 }
