@@ -21,8 +21,10 @@ fn main() {
     let quiz = model::load_file("vim.sl");
 
     let mut siv = ui::create_ui();
+
+    siv.set_user_data(quiz);
     
-    ui::show_question(&quiz, &mut siv, 0);
+    ui::show_question(&mut siv);
     
     siv.run();
 }

@@ -22,6 +22,7 @@ use serde_yaml;
 pub struct Quiz {
     pub title: String,
     pub bank: Vec<QAndA>,
+    pub cur_question: usize,
 }
 
 impl Quiz {
@@ -29,6 +30,7 @@ impl Quiz {
         Quiz {
             title: title.to_owned(),
             bank,
+            cur_question: 0,
         }
     }
 }

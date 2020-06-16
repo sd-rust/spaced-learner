@@ -31,8 +31,11 @@ pub fn create_ui() -> Cursive {
 }
 
 
-pub fn show_question(quiz: &model::Quiz, siv: &mut Cursive, question_number: usize) {
-    let qna = &quiz.bank[question_number];
+pub fn show_question(siv: &mut Cursive) {
+
+    let quiz: &mut model::Quiz = siv.user_data().unwrap();
+
+    let qna = &quiz.bank[quiz.cur_question];
 
     let text_view = TextView::new(&qna.question)
                         .align(Align::center())
