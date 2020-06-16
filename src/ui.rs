@@ -34,7 +34,7 @@ pub fn start_quiz(siv: &mut Cursive) {
     show_question(siv, 0);
 }
 
-pub fn show_question(siv: &mut Cursive, question_num: usize) {
+fn show_question(siv: &mut Cursive, question_num: usize) {
 
     let quiz: &mut model::Quiz = siv.user_data().unwrap();
 
@@ -56,7 +56,7 @@ pub fn show_question(siv: &mut Cursive, question_num: usize) {
     siv.add_fullscreen_layer(dlg_question);
 }
 
-pub fn show_answer(siv: &mut Cursive, question_num: usize) {
+fn show_answer(siv: &mut Cursive, question_num: usize) {
     siv.pop_layer();
 
     let quiz: &mut model::Quiz = siv.user_data().unwrap();
