@@ -12,14 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-extern crate cursive;
-
 use cursive::Cursive;
+use cursive::CursiveExt;
 use cursive::views::{Dialog, TextView};
 use cursive::theme::{Color, PaletteColor, BorderStyle};
 use cursive::traits::Boxable;
 use cursive::align::Align;
-use model;
+use crate::model;
 
 pub fn create_ui() -> Cursive {
     let mut siv = Cursive::default();
@@ -31,42 +30,42 @@ pub fn create_ui() -> Cursive {
     siv
 }
 
-impl model::Quiz {
-    pub fn show_question(&self, siv: &mut Cursive, question_number: usize) {
-        let qna = &self.bank[question_number];
 
-        let text_view = TextView::new(&qna.question)
-                            .align(Align::center())
-                            .full_screen();
+pub fn show_question(quiz: &model::Quiz, siv: &mut Cursive, question_number: usize) {
+    let qna = &quiz.bank[question_number];
 
-        // let dialog = Dialog::around(text_view)
-        //                 .title(self.title)
-        //                 .button("Show Answer", move |s| self.show_answer(s, question_number));
+    let text_view = TextView::new(&qna.question)
+                        .align(Align::center())
+                        .full_screen();
 
-        let dialog = Dialog::around(text_view)
-            .title(&self.title)
-            .button("Show Answer", |s| s.quit());
+    // let dialog = Dialog::around(text_view)
+    //                 .title(self.title)
+    //                 .button("Show Answer", move |s| self.show_answer(s, question_number));
 
-        siv.add_fullscreen_layer(dialog);
-    }
+    let dialog = Dialog::around(text_view)
+        .title(&quiz.title)
+        .button("Show Answer", |s| s.quit());
 
-    // pub fn show_answer(&self, siv: &mut Cursive, question_number: usize) {
-    //     siv.pop_layer();
-
-    //     let qna = &self.bank[question_number];
-    
-    //     let text_view = TextView::new(qna.answer)
-    //         .align(Align::center())
-    //         .full_screen();
-    
-    //     let dialog = Dialog::around(text_view)
-    //         .title(self.title)
-    //         .button("Ok", |s| s.quit());
-    
-    //     siv.add_fullscreen_layer(dialog);
-    // }
-    
+    siv.add_fullscreen_layer(dialog);
 }
+
+// pub fn show_answer(&self, siv: &mut Cursive, question_number: usize) {
+//     siv.pop_layer();
+
+//     let qna = &self.bank[question_number];
+
+//     let text_view = TextView::new(qna.answer)
+//         .align(Align::center())
+//         .full_screen();
+
+//     let dialog = Dialog::around(text_view)
+//         .title(self.title)
+//         .button("Ok", |s| s.quit());
+
+//     siv.add_fullscreen_layer(dialog);
+// }
+
+
 
 fn set_theme_terminal_default(siv: &mut Cursive) {
     // We'll return the current theme with a small modification.

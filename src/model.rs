@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use serde_yaml;
 use std::fs::File;
 use std::io::prelude::*;
 use std::vec::Vec;
+use serde::{Serialize, Deserialize};
+use serde_yaml;
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct Quiz {

@@ -1,7 +1,7 @@
 ---
-title: "Vim Quiz!"
+title: Vim Quiz!
 bank:
-  - question: "How do you quit vim?"
+  - question: How do you quit vim?
     answer: ":q"
-  - question: "How do you enter insert mode from normal mode?"
+  - question: How do you enter insert mode from normal mode?
     answer: "'i' or 'a'"

@@ -3,11 +3,11 @@ name = "spaced_learner"
 version = "0.1.0"
 authors = ["Sandeep Datta <datta.sandeep@gmail.com>"]
 license = "Apache-2.0"
+edition = "2018"
 
 [dependencies]
-serde = "1.0"
-serde_yaml = "0.7"
-serde_derive = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.8"
 
 [dependencies.cursive]
 version = "*"

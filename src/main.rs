@@ -12,9 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-extern crate cursive;
-extern crate serde_yaml;
-#[macro_use] extern crate serde_derive;
 
 mod model;
 mod ui;
@@ -23,10 +20,9 @@ fn main() {
     model::save_sample_yaml("vim.sl");
     let quiz = model::load_file("vim.sl");
 
-    let mut ui = ui::create_ui();
-    // ui.run();
-    quiz.show_question(&mut ui, 0);
-    while ui.is_running() {
-        ui.step();
-    }
+    let mut siv = ui::create_ui();
+    
+    ui::show_question(&quiz, &mut siv, 0);
+    
+    siv.run();
 }
