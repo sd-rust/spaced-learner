@@ -41,34 +41,30 @@ pub fn show_question(siv: &mut Cursive) {
                         .align(Align::center())
                         .full_screen();
 
-    // let dialog = Dialog::around(text_view)
-    //                 .title(self.title)
-    //                 .button("Show Answer", move |s| self.show_answer(s, question_number));
-
     let dialog = Dialog::around(text_view)
         .title(&quiz.title)
-        .button("Show Answer", |s| s.quit());
+        .button("Show Answer", |s| show_answer(s));
 
     siv.add_fullscreen_layer(dialog);
 }
 
-// pub fn show_answer(&self, siv: &mut Cursive, question_number: usize) {
-//     siv.pop_layer();
+pub fn show_answer(siv: &mut Cursive) {
+    siv.pop_layer();
 
-//     let qna = &self.bank[question_number];
+    let quiz: &mut model::Quiz = siv.user_data().unwrap();
 
-//     let text_view = TextView::new(qna.answer)
-//         .align(Align::center())
-//         .full_screen();
+    let qna = &quiz.bank[quiz.cur_question];
 
-//     let dialog = Dialog::around(text_view)
-//         .title(self.title)
-//         .button("Ok", |s| s.quit());
+    let text_view = TextView::new(&qna.answer)
+        .align(Align::center())
+        .full_screen();
 
-//     siv.add_fullscreen_layer(dialog);
-// }
+    let dialog = Dialog::around(text_view)
+        .title(&quiz.title)
+        .button("Ok", |s| s.quit());
 
-
+    siv.add_fullscreen_layer(dialog);
+}
 
 fn set_theme_terminal_default(siv: &mut Cursive) {
     // We'll return the current theme with a small modification.
