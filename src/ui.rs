@@ -31,7 +31,7 @@ pub fn create_ui() -> Cursive {
 }
 
 
-pub fn show_question(siv: &mut Cursive) {
+pub fn start_quiz(siv: &mut Cursive) {
 
     let quiz: &mut model::Quiz = siv.user_data().unwrap();
 

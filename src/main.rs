@@ -24,7 +24,7 @@ fn main() {
 
     siv.set_user_data(quiz);
     
-    ui::show_question(&mut siv);
+    ui::start_quiz(&mut siv);
     
     siv.run();
 }
