@@ -37,15 +37,15 @@ pub fn show_question(siv: &mut Cursive) {
 
     let qna = &quiz.bank[quiz.cur_question];
 
-    let text_view = TextView::new(&qna.question)
+    let tv_question = TextView::new(&qna.question)
                         .align(Align::center())
                         .full_screen();
 
-    let dialog = Dialog::around(text_view)
+    let dlg_question = Dialog::around(tv_question)
         .title(&quiz.title)
         .button("Show Answer", |s| show_answer(s));
 
-    siv.add_fullscreen_layer(dialog);
+    siv.add_fullscreen_layer(dlg_question);
 }
 
 pub fn show_answer(siv: &mut Cursive) {
@@ -55,15 +55,15 @@ pub fn show_answer(siv: &mut Cursive) {
 
     let qna = &quiz.bank[quiz.cur_question];
 
-    let text_view = TextView::new(&qna.answer)
+    let tv_answer = TextView::new(&qna.answer)
         .align(Align::center())
         .full_screen();
 
-    let dialog = Dialog::around(text_view)
+    let dlg_answer = Dialog::around(tv_answer)
         .title(&quiz.title)
         .button("Ok", |s| s.quit());
 
-    siv.add_fullscreen_layer(dialog);
+    siv.add_fullscreen_layer(dlg_answer);
 }
 
 fn set_theme_terminal_default(siv: &mut Cursive) {
